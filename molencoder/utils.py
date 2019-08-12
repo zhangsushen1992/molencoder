@@ -156,10 +156,11 @@ def validate_model(val_loader, encoder, decoder, dtype):
 def load_dataset(filename, split=True):
     h5f = h5py.File(filename, 'r')
     if split:
-        data_train = h5f['data_train'][:]
+        data_train = h5f['data_train'][:300000]
+        data_test = h5f['data_train'][300000:]
     else:
         data_train = None
-    data_test = h5f['data_test'][:]
+        data_test = h5f['data_train'][:]
     charset = h5f['charset'][:]
     h5f.close()
     if split:
